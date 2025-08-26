@@ -1,0 +1,140 @@
+\documentclass[9pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{helvet}
+\renewcommand{\rmdefault}{phv} % Helvetica
+
+\geometry{margin=1cm}
+
+% ==== Invoice variables ====
+\newcommand{\CompanyName}{{{COMPANY_NAME}}}
+\newcommand{\CompanyId}{{{COMPANY_ID}}}
+\newcommand{\InvoiceNumber}{{{INVOICE_NUMBER}}} 
+\newcommand{\CreationDate}{{{CURRENT_YEAR}}-{{CURRENT_MONTH}}-01}
+\newcommand{\DueDate}{{{CURRENT_YEAR}}-{{CURRENT_MONTH}}-30}
+
+\newcommand{\BillFrom}{{{BILL_FROM}}}
+\newcommand{\BillTo}{{{BILL_TO}}}
+
+\newcommand{\ServiceTitle}{{{SERVICE_TITLE}}}
+\newcommand{\ServiceDesc}{{{SERVICE_DESC}}}
+\newcommand{\Currency}{{{CURRENCY}}}
+\newcommand{\Amount}{{{AMOUNT}}}
+
+\newcommand{\BeneficiaryName}{{{BENEFICIARY_NAME}}}
+\newcommand{\IBAN}{{{IBAN}}}
+\newcommand{\Swift}{{{SWIFT}}}
+\newcommand{\BankName}{{{BANK_NAME}}}
+\newcommand{\BankAddress}{{{BANK_ADDRESS}}}
+\newcommand{\IntermediaryBankName}{{{INTERMEDIARY_BANK_NAME}}}
+\newcommand{\IntermediaryBankSWIFT}{{{INTERMEDIARY_BANK_SWIFT}}}
+\newcommand{\SupportEmail}{{{SUPPORT_EMAIL}}}
+
+% ==== Visual helpers ====
+\definecolor{brand}{HTML}{111827} % near-black for headings
+\definecolor{muted}{HTML}{111827} % gray-600
+\definecolor{rule}{HTML}{111827}  % gray-200
+
+\newcommand{\Hrule}{\par\noindent\color{rule}\rule{\linewidth}{0.6pt}\par}
+
+% Remove page numbers
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{minipage}[t]{0.60\textwidth}
+    {\Large \bfseries \CompanyName} \\ 
+    {\bfseries CNPJ:}
+    {\CompanyId}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.40\textwidth}
+     \raggedleft{\huge \textcolor{black}{Invoice \#\InvoiceNumber}}
+\end{minipage}
+
+\begin{minipage}[t]{0.48\textwidth}
+    \vspace{0.25em}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \raggedleft{\small \textbf{Creation date:} \CreationDate} \\
+    {\small \textbf{Due date:} \DueDate}
+\end{minipage}%
+
+
+\vspace{1.2em}
+\Hrule
+\vspace{0.8em}
+
+% Bill From / Bill To using minipage for better layout
+\begin{minipage}[t]{0.48\textwidth}
+    \textbf{Bill From:} \\
+    \BillFrom
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \textbf{Bill To:} \\
+    \BillTo
+\end{minipage}
+
+\vspace{1.2em}
+\Hrule
+\vspace{0.8em}
+
+% Services
+{\large\bfseries Services\par}
+\vspace{0.5em}
+
+% Aqui ajustamos para que o ServiceTitle e ServiceDesc fiquem na mesma "coluna" mas com um formato fluído.
+\begin{minipage}[t]{0.6\textwidth}
+    \textbf{\ServiceTitle} \\[0.5em]
+    \ServiceDesc
+\end{minipage}
+
+\vspace{0.8em}
+\Hrule
+\vspace{0.6em}
+
+% Total
+\begin{tabularx}{\textwidth}{@{}X >{\raggedleft\arraybackslash}p{0.5\textwidth}@{}}
+\textbf{} & {\huge Total \bfseries\Currency~\Amount} \\
+\end{tabularx}
+
+\vspace{1.2em}
+\vspace{0.8em}
+
+% Payment details
+{\bfseries Pay to banking details below:\par}
+\vspace{0.5em}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.35\textwidth} X@{}}
+\bfseries Beneficiary name: & \BeneficiaryName \\
+\bfseries Beneficiary Account Number (IBAN): & \IBAN \\
+\bfseries SWIFT Code: & \Swift \\
+\bfseries Bank Name: & \BankName \\
+\bfseries Bank Address: & \BankAddress \\
+\end{tabularx}
+
+\vspace{0.8em}
+% Intermediary Bank details
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.35\textwidth} X@{}}
+\bfseries Intermediary Bank Name: & \IntermediaryBankName \\
+\bfseries SWIFT Code: & \IntermediaryBankSWIFT \\
+\end{tabularx}
+
+
+\vspace{1.2em}
+\Hrule
+\vspace{0.8em}
+
+{\small Questions? Send an email to \href{mailto:\SupportEmail}{\SupportEmail}.\par}
+
+\end{document}
