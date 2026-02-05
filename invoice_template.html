@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Invoice {{ INVOICE_NUMBER }}</title>
+
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        color: #111827;
+      }
+
+      .page {
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      .row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .col {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .right {
+        text-align: right;
+      }
+
+      .company-title {
+        font-weight: 700;
+        font-size: 16pt;
+        line-height: 1.15;
+      }
+
+      .invoice-title {
+        font-weight: 700;
+        font-size: 24pt;
+        line-height: 1.1;
+      }
+
+      .small {
+        font-size: 9pt;
+      }
+
+      .strong {
+        font-weight: 700;
+      }
+
+      .rule {
+        border-top: 1px solid #111827;
+        margin: 14px 0;
+      }
+
+      .block-preline {
+        white-space: pre-line;
+        line-height: 1.25;
+      }
+
+      .section-title {
+        font-weight: 700;
+        font-size: 14pt;
+        margin: 0 0 8px 0;
+      }
+
+      .service-title {
+        font-weight: 700;
+        margin: 0 0 6px 0;
+        font-size: 10pt;
+      }
+
+      .service-desc {
+        margin: 0;
+        line-height: 1.25;
+      }
+
+      .total-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .total-label {
+        font-weight: 700;
+        font-size: 22pt;
+      }
+
+      .total-value {
+        font-weight: 700;
+        font-size: 22pt;
+      }
+
+      .payment-title {
+        font-weight: 700;
+        margin: 10px 0 8px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      td {
+        vertical-align: top;
+        padding: 2px 0;
+      }
+
+      td.label {
+        width: 35%;
+        font-weight: 700;
+        padding-right: 10px;
+      }
+
+      td.value {
+        width: 65%;
+        word-wrap: break-word;
+        white-space: pre-line;
+      }
+
+      .footer {
+        font-size: 9pt;
+      }
+
+      @page {
+        size: A4;
+        margin: 1cm;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="row">
+        <div class="col">
+          <div class="company-title">{{ COMPANY_NAME }}</div>
+          <div class="small">
+            <span class="strong">CNPJ:</span> {{ COMPANY_ID }}
+          </div>
+        </div>
+
+        <div class="col right">
+          <div class="invoice-title">Invoice #{{ INVOICE_NUMBER }}</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 10px">
+        <div class="col"></div>
+        <div class="col right small">
+          <div>
+            <span class="strong">Creation date:</span> {{ CREATION_DATE }}
+          </div>
+          <div><span class="strong">Due date:</span> {{ DUE_DATE }}</div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="row">
+        <div class="col">
+          <div class="strong" style="margin-bottom: 4px">Bill From:</div>
+          <div class="block-preline">{{ BILL_FROM }}</div>
+        </div>
+
+        <div class="col">
+          <div class="strong" style="margin-bottom: 4px">Bill To:</div>
+          <div class="block-preline">{{ BILL_TO }}</div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="section-title">Services</div>
+
+      <div style="max-width: 60%">
+        <div class="service-title">{{ SERVICE_TITLE }}</div>
+        <p class="service-desc block-preline">{{ SERVICE_DESC }}</p>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="total-row" style="margin-top: 6px">
+        <div class="total-label">Total</div>
+        <div class="total-value">{{ CURRENCY }} {{ AMOUNT }}</div>
+      </div>
+
+      <div style="height: 18px"></div>
+
+      <div class="payment-title">Pay to banking details below:</div>
+
+      <table>
+        <tr>
+          <td class="label">Beneficiary name:</td>
+          <td class="value">{{ BENEFICIARY_NAME }}</td>
+        </tr>
+        <tr>
+          <td class="label">Beneficiary Account Number (IBAN):</td>
+          <td class="value">{{ IBAN }}</td>
+        </tr>
+        <tr>
+          <td class="label">SWIFT Code:</td>
+          <td class="value">{{ SWIFT }}</td>
+        </tr>
+        <tr>
+          <td class="label">Bank Name:</td>
+          <td class="value">{{ BANK_NAME }}</td>
+        </tr>
+        <tr>
+          <td class="label">Bank Address:</td>
+          <td class="value">{{ BANK_ADDRESS }}</td>
+        </tr>
+      </table>
+
+      <div style="height: 10px"></div>
+
+      <table>
+        <tr>
+          <td class="label">Intermediary Bank Name:</td>
+          <td class="value">{{ INTERMEDIARY_BANK_NAME }}</td>
+        </tr>
+        <tr>
+          <td class="label">SWIFT Code:</td>
+          <td class="value">{{ INTERMEDIARY_BANK_SWIFT }}</td>
+        </tr>
+      </table>
+
+      <div class="rule"></div>
+
+      <div class="footer">
+        Questions? Send an email to
+        <a href="mailto:{{ SUPPORT_EMAIL }}">{{ SUPPORT_EMAIL }}</a>.
+      </div>
+    </div>
+  </body>
+</html>
