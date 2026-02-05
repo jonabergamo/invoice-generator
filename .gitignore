@@ -2,3 +2,4 @@
 invoices/*
 invoice_number.txt
 .venv
+.DS_Store
